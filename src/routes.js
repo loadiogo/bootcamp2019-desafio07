@@ -8,16 +8,15 @@ const Routes = createAppContainer(
     {
       Main,
       // User,
-      // Repository,
     },
     {
       headerLayoutPreset: 'center',
       headerBackTitleVisible: false,
       defaultNavigationOptions: {
         headerStyle: {
-          backgroundColor: '#7159c1',
+          backgroundColor: '#141419',
         },
-        headerTintColor: '#FFF',
+        headerTintColor: '#191920',
       },
     }
   )
