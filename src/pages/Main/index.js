@@ -1,37 +1,53 @@
 import React, { Component } from 'react';
-import { Text, Image } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+// import Icon from 'react-native-vector-icons/MaterialIcons';
 import api from '../../services/api';
 
-import { Container, ProductList, ProductView, Cart } from './styles';
-
-import logo from '../../assets/images/logo.svg';
+import {
+  Container,
+  ProductList,
+  ProductView,
+  ProductImage,
+  ProductName,
+  ProductValue,
+} from './styles';
 
 export default class Main extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      products: [],
+    };
   }
 
-  static navigationOptions = {
-    headerTitle: <Image source={logo} />,
-    headerRight: (
-      <Cart to="/cart">
-        <Text>
-          Meu carrinho
-          {/* <span>{cartSize} itens</span> */}
-        </Text>
-        <Icon name="shopping-cart" size={36} color="#FFF" />
-      </Cart>
-    ),
-  };
+  async componentDidMount() {
+    const response = await api.get('/products');
+
+    const data = response.data.map(product => ({
+      ...product,
+      // priceFormatted: formatPrice(product.price),
+    }));
+
+    this.setState({
+      products: data,
+    });
+  }
 
   render() {
+    const { products } = this.state;
+    console.tron.log(products);
     return (
       <Container>
-        <ProductList>
-          <ProductView>Hello World</ProductView>
-        </ProductList>
+        <ProductList
+          data={products}
+          keyExtractor={product => product.id}
+          renderItem={({ item }) => (
+            <ProductView>
+              <ProductImage source={{ uri: item.image }} />
+              <ProductName>{item.title}</ProductName>
+              <ProductValue />
+            </ProductView>
+          )}
+        />
       </Container>
     );
   }
