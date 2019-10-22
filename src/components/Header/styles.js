@@ -14,7 +14,7 @@ export const Container = styled.View`
   padding: 20px;
 `;
 
-export const CartContainer = styled.View`
+export const CartContainer = styled.TouchableOpacity`
   flex: 1;
   align-items: flex-end;
   width: 24px;

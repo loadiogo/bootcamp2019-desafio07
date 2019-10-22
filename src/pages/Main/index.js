@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import api from '../../services/api';
 
 import {
@@ -9,6 +9,10 @@ import {
   ProductImage,
   ProductName,
   ProductValue,
+  AddToCartButton,
+  AddToCartText,
+  ProductAmountContainer,
+  ProductAmountText,
 } from './styles';
 
 export default class Main extends Component {
@@ -44,7 +48,14 @@ export default class Main extends Component {
             <ProductView>
               <ProductImage source={{ uri: item.image }} />
               <ProductName>{item.title}</ProductName>
-              <ProductValue />
+              <ProductValue>{item.price}</ProductValue>
+              <AddToCartButton>
+                <ProductAmountContainer>
+                  <Icon name="shopping-basket" size={24} color="#fff" />
+                  <ProductAmountText>1</ProductAmountText>
+                </ProductAmountContainer>
+                <AddToCartText>ADICIONAR</AddToCartText>
+              </AddToCartButton>
             </ProductView>
           )}
         />

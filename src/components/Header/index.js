@@ -10,7 +10,7 @@ export default function Header() {
         <Logo />
         <CartContainer>
           <MaterialIcons name="shopping-basket" size={24} color="#fff" />
-          <Amount>0</Amount>
+          <Amount>10</Amount>
         </CartContainer>
       </Container>
     </Wrapper>
