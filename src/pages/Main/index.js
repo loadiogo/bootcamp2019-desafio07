@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import api from '../../services/api';
+// import formatPrice from '../../util/format';
+
+import * as CartActions from '../../store/modules/cart/actions';
 
 import {
   Container,
@@ -15,7 +20,7 @@ import {
   ProductAmountText,
 } from './styles';
 
-export default class Main extends Component {
+class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,7 +29,7 @@ export default class Main extends Component {
   }
 
   async componentDidMount() {
-    const response = await api.get('/products');
+    const response = await api.get('products');
 
     const data = response.data.map(product => ({
       ...product,
@@ -36,9 +41,14 @@ export default class Main extends Component {
     });
   }
 
+  handleAddProduct = id => {
+    const { addToCartRequest } = this.props;
+
+    addToCartRequest(id);
+  };
+
   render() {
     const { products } = this.state;
-    console.tron.log(products);
     return (
       <Container>
         <ProductList
@@ -48,8 +58,8 @@ export default class Main extends Component {
             <ProductView>
               <ProductImage source={{ uri: item.image }} />
               <ProductName>{item.title}</ProductName>
-              <ProductValue>{item.price}</ProductValue>
-              <AddToCartButton>
+              <ProductValue>{item.priceFormatted}</ProductValue>
+              <AddToCartButton onPress={() => this.handleAddProduct(item.id)}>
                 <ProductAmountContainer>
                   <Icon name="shopping-basket" size={24} color="#fff" />
                   <ProductAmountText>1</ProductAmountText>
@@ -63,3 +73,19 @@ export default class Main extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  amount: state.cart.reduce((amount, product) => {
+    amount[product.id] = product.amount;
+
+    return amount;
+  }, {}),
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CartActions, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Main);

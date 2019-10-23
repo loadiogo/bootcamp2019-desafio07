@@ -13,11 +13,11 @@ const Routes = createAppContainer(
       // User,
     },
     {
-      headerLayoutPreset: 'center',
-      headerBackTitleVisible: false,
-      defaultNavigationOptions: {
-        header: <Header />,
-      },
+      // headerLayoutPreset: 'center',
+      // headerBackTitleVisible: false,
+      defaultNavigationOptions: navigation => ({
+        header: <Header {...navigation} />,
+      }),
       cardStyle: {
         backgroundColor: '#191920',
       },
