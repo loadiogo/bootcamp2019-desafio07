@@ -49,6 +49,8 @@ class Main extends Component {
 
   render() {
     const { products } = this.state;
+    const { amount } = this.props;
+
     return (
       <Container>
         <ProductList
@@ -62,7 +64,7 @@ class Main extends Component {
               <AddToCartButton onPress={() => this.handleAddProduct(item.id)}>
                 <ProductAmountContainer>
                   <Icon name="shopping-basket" size={24} color="#fff" />
-                  <ProductAmountText>1</ProductAmountText>
+                  <ProductAmountText>{amount[item.id] || 0}</ProductAmountText>
                 </ProductAmountContainer>
                 <AddToCartText>ADICIONAR</AddToCartText>
               </AddToCartButton>
