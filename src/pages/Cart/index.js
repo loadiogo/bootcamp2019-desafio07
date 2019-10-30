@@ -1,7 +1,9 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { formatPrice } from '../../util/format';
 
 import * as CartActions from '../../store/modules/cart/actions';
@@ -14,14 +16,26 @@ import {
   Name,
   UnitValue,
   AmountContainer,
-  QuantityContainer,
   Number,
   Value,
   DetailsContainer,
   ProductContainer,
+  TotalContainer,
+  TotalText,
+  Total,
+  FinalizarPedidoButton,
+  FinalizarPedidoText,
 } from './styles';
 
 function Cart({ cart, total, removeFromCart, updateAmountRequest }) {
+  function increment(product) {
+    updateAmountRequest(product.id, product.amount + 1);
+  }
+
+  function decrement(product) {
+    updateAmountRequest(product.id, product.amount - 1);
+  }
+
   return (
     <Container>
       <ProductList>
@@ -33,15 +47,29 @@ function Cart({ cart, total, removeFromCart, updateAmountRequest }) {
                 <Name>{product.title}</Name>
                 <UnitValue>{product.priceFormatted}</UnitValue>
               </DetailsContainer>
+              <TouchableOpacity onPress={() => removeFromCart(product.id)}>
+                <Icon name="remove-shopping-cart" color="#00cc74" size={23} />
+              </TouchableOpacity>
             </ProductContainer>
             <AmountContainer>
-              <QuantityContainer>
-                <Number>{product.amount}</Number>
-              </QuantityContainer>
-              <Value />
+              <TouchableOpacity onPress={() => decrement(product)}>
+                <Icon name="remove-circle-outline" color="#00cc74" size={16} />
+              </TouchableOpacity>
+              <Number>{product.amount}</Number>
+              <TouchableOpacity onPress={() => increment(product)}>
+                <Icon name="add-circle-outline" color="#00cc74" size={16} />
+              </TouchableOpacity>
+              <Value>{product.subtotal}</Value>
             </AmountContainer>
           </Product>
         ))}
+        <TotalContainer>
+          <TotalText>TOTAL</TotalText>
+          <Total>{total}</Total>
+        </TotalContainer>
+        <FinalizarPedidoButton>
+          <FinalizarPedidoText>FINALIZAR PEDIDO</FinalizarPedidoText>
+        </FinalizarPedidoButton>
       </ProductList>
     </Container>
   );

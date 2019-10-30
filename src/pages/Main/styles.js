@@ -37,7 +37,7 @@ export const ProductValue = styled.Text`
 
 export const AddToCartButton = styled.TouchableOpacity`
   flex-direction: row;
-  background: #7159c1;
+  background: #00cc74;
   align-items: center;
   margin-top: auto;
   border-radius: 4px;
@@ -52,7 +52,7 @@ export const AddToCartText = styled.Text`
 
 export const ProductAmountContainer = styled.View`
   padding: 12px;
-  background: ${darken(0.03, '#7159c1')};
+  background: ${darken(0.03, '#00cc74')};
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
   flex-direction: row;

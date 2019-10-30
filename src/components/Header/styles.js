@@ -36,7 +36,7 @@ export const Amount = styled.Text`
   right: -8px;
   min-width: 18px;
   min-height: 18px;
-  background-color: #7159c1;
+  background-color: #00cc74;
   font-size: 10px;
   color: #fff;
   padding: 3px;
